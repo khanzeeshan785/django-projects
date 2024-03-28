@@ -16,7 +16,9 @@ class Flight(models.Model):
     arrivalCity = models.CharField(max_length =20)
     dateOfDeparture = models.DateField()
     estimatedTimeOfDeparture = models.TimeField()
-
+        
+    def __str__(self):
+        return f'Flight{self.flightNumber}'
 
 class Passenger(models.Model):
     firstName = models.CharField(max_length =20)
@@ -24,11 +26,17 @@ class Passenger(models.Model):
     middleName = models.CharField(max_length =20)
     email = models.CharField(max_length =20)
     phone = models.CharField(max_length =10)
+        
+    def __str__(self):
+        return f'Passenger{self.firstName}'
 
 
 class Reservation(models.Model):
     flight = models.ForeignKey(Flight, on_delete= models.CASCADE)
     passenger = models.OneToOneField(Passenger, on_delete= models.CASCADE)
+    
+    def __str__(self):
+        return f'{self.flight}-{self.passenger}'
 
 '''
 Passenger can have only one Reservation, as indicated by the OneToOneField relationship.
